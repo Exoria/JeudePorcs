@@ -50,3 +50,12 @@ void Map::dessiner(ALLEGRO_DISPLAY* display)
             this->_cases[j * this->_nb_colonnes + i]->dessiner_case(display, this->_textures);
     }
 }
+
+// GETTEURS
+
+const Case* Map::get_case(const float pos_x, const float pos_y)
+{
+    int colonne = floor(pos_x / this->_largeur_case);
+    int ligne   = floor(pos_y / this->_hauteur_case);
+    return this->_cases[colonne * this->_nb_colonnes + ligne];
+}

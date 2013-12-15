@@ -8,13 +8,14 @@ const int SCREEN_W = 640;
 const int SCREEN_H = 480;
 const int BOUNCER_SIZE = 32;
 
-int main(int argc, char **argv){
-   ALLEGRO_DISPLAY *display = NULL;
+int main(int argc, char **argv)
+{
+   ALLEGRO_DISPLAY     *display     = NULL;
    ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-   ALLEGRO_TIMER *timer = NULL;
-   ALLEGRO_BITMAP *bouncer = NULL;
-   float bouncer_x = SCREEN_W / 2.0 - BOUNCER_SIZE / 2.0;
-   float bouncer_y = SCREEN_H / 2.0 - BOUNCER_SIZE / 2.0;
+   ALLEGRO_TIMER       *timer       = NULL;
+   ALLEGRO_BITMAP      *bouncer     = NULL;
+   float bouncer_x  = SCREEN_W / 2.0 - BOUNCER_SIZE / 2.0;
+   float bouncer_y  = SCREEN_H / 2.0 - BOUNCER_SIZE / 2.0;
    float bouncer_dx = -4.0, bouncer_dy = 4.0;
    bool redraw = true;
 

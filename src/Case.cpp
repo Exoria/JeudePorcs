@@ -2,10 +2,10 @@
 
 Case::Case(const Map* ma_map, const bool libre, const float source_largeur, const float source_hauteur,
            const float source_x, const float source_y, const int colonne, const int ligne, const string chemin_image):
-    _map(NULL), _libre(libre), _source_largeur(source_largeur), _source_hauteur(source_hauteur),
-    _source_x(source_x), _source_y(source_y), _colonne(colonne), _ligne(ligne), _chemin_image(chemin_image)
+    _libre(libre), _source_largeur(source_largeur), _source_hauteur(source_hauteur), _source_x(source_x), _source_y(source_y),
+    _colonne(colonne), _ligne(ligne), _chemin_image(chemin_image)
 {
-	this->_map = new Map(ma_map);
+	this->_map = ma_map;
     this->init();
 }
 

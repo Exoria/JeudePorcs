@@ -29,7 +29,7 @@ class Case
 
         // SETTEURS
         // pas de setteur pour le ALLEGRO_BITMAP, il faut changer le _chemin_image
-        void set_map(const Map *ma_map)                     {this->_map = new Map(ma_map);};
+        void set_map(const Map *ma_map)                     {this->_map = ma_map;};
         void set_libre(const bool libre)                    {this->_libre = libre;};
         void set_source_largeur(const float source_largeur) {this->_source_largeur = source_largeur;};
         void set_source_hauteur(const float source_hauteur) {this->_source_hauteur = source_hauteur;};
@@ -41,7 +41,7 @@ class Case
 
     private:
         ALLEGRO_BITMAP *_image;
-        Map   *_map;
+        const Map *_map;
         bool   _libre;
         float  _source_largeur;
         float  _source_hauteur;

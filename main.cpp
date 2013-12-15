@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
+#include "CharacterAnim.hpp"
 
 const float FPS = 60;
 const int SCREEN_W = 640;
@@ -34,6 +36,11 @@ int main(int argc, char **argv){
       return -1;
    }
 
+   if (!al_init_image_addon()) {
+	fprintf(stderr, "failed to load image addon!\n");
+	return -1;
+   }
+
    bouncer = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
    if(!bouncer) {
       fprintf(stderr, "failed to create bouncer bitmap!\n");
@@ -41,6 +48,8 @@ int main(int argc, char **argv){
       al_destroy_timer(timer);
       return -1;
    }
+
+   fprintf(stdout, "%s\n", al_get_current_directory());
 
    al_set_target_bitmap(bouncer);
 
@@ -66,6 +75,9 @@ int main(int argc, char **argv){
    al_flip_display();
 
    al_start_timer(timer);
+
+   {
+	CharacterAnim anim(0,0,3.0f);
 
    while(1)
    {
@@ -97,14 +109,18 @@ int main(int argc, char **argv){
 
          al_draw_bitmap(bouncer, bouncer_x, bouncer_y, 0);
 
+         anim.Draw(50,50);
+
          al_flip_display();
       }
+   }
    }
 
    al_destroy_bitmap(bouncer);
    al_destroy_timer(timer);
    al_destroy_display(display);
    al_destroy_event_queue(event_queue);
+   al_shutdown_image_addon();
 
    return 0;
 }

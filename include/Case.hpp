@@ -10,7 +10,7 @@ using namespace std;
 class Case
 {
     public:
-        Case(const Map* map, const bool libre, const float source_largeur, const float source_hauteur,
+        Case(const Map* ma_map, const bool libre, const float source_largeur, const float source_hauteur,
              const float source_x, const float source_y, const int colonne, const int ligne, const string chemin_image);
         ~Case();
         void dessiner_case(ALLEGRO_DISPLAY *display);
@@ -29,7 +29,7 @@ class Case
 
         // SETTEURS
         // pas de setteur pour le ALLEGRO_BITMAP, il faut changer le _chemin_image
-        void set_map(const Map *map)                        {this->_map(map);};
+        void set_map(const Map *ma_map)                     {this->_map = new Map(ma_map);};
         void set_libre(const bool libre)                    {this->_libre = libre;};
         void set_source_largeur(const float source_largeur) {this->_source_largeur = source_largeur;};
         void set_source_hauteur(const float source_hauteur) {this->_source_hauteur = source_hauteur;};

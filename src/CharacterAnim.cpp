@@ -7,11 +7,6 @@ int CharacterAnim::useCount = 0;
 
 CharacterAnim::CharacterAnim(int ch, int an, float fr) : character(ch), anim(an), framerate(fr), curFrame(0), lastFrameChange(0.0f) {
 	if (useCount == 0 && image == NULL) {
-		if (al_filename_exists("resources/persos.png"))
-			fprintf(stdout, "YEAH\n");
-		else
-			fprintf(stdout, "OH NOH\n");
-
 		image = al_load_bitmap("resources/persos.png");
 		al_convert_mask_to_alpha(image, al_get_pixel(image,0,0));
 	}

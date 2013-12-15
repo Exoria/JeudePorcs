@@ -1,13 +1,18 @@
+#include <cmath>
+//#include <allegro5/allegro_primitives.h>
 #include "Character.hpp"
 
-Character::Character()
+#define SIZE 0.9f
+
+Character::Character(Map* m)
 :	anim(2,0,3.0f)
 ,	pressingUp(false)
 ,	pressingDown(false)
 ,	pressingLeft(false)
 ,	pressingRight(false)
 ,	x(30.0f)
-,	y(30.0f)
+,	y(100.0f)
+,	_map(m)
 {
 }
 
@@ -52,10 +57,63 @@ void Character::Update(const float deltaT) {
 		anim.framerate = 0.0f;
 		anim.SetFrame(1);
 	}
+
+	// collision
+	x /= _map->get_largeur_case();
+	y /= _map->get_hauteur_case();
+
+	float lx = fmodf(x, 1.0f);
+	float ly = fmodf(y, 1.0f);
+
+	int px = (int) x;
+	int py = (int) y;
+
+	int cx = lx < 0.5f ? -1 : 1;
+	int cy = ly < 0.5f ? -1 : 1;
+
+	float colx = cx < 0 ? floorf(x) : ceilf(x);
+	float coly = cy < 0 ? floorf(y) : ceilf(y);
+
+	if (!IsCellFree(px, py+cy)) {
+		MoveFrom(x,coly);
+	}
+
+	if (!IsCellFree(px+cx, py)) {
+		MoveFrom(colx,y);
+	}
+
+	if (!IsCellFree(px+cx, py+cy)) {
+		MoveFrom(colx,coly);
+	}
+
+	x *= _map->get_largeur_case();
+	y *= _map->get_hauteur_case();
+}
+
+void Character::MoveFrom(float colx, float coly) {
+	float s = SIZE * 0.5f;
+	float dirx = colx - x;
+	float diry = coly - y;
+	float dirsqr = dirx*dirx + diry*diry;
+	if (dirsqr < s*s) {
+		float l = sqrtf(dirsqr);
+		float scl = (l-s)/l;
+		x += dirx * scl;
+		y += diry * scl;
+	}
+}
+
+bool Character::IsCellFree(int cx, int cy) {
+	const Case* c = _map->get_case(cx * _map->get_largeur_case(), cy * _map->get_hauteur_case());
+	if (c) {
+		return c->get_libre();
+	}
+	return true;
 }
 
 void Character::Draw() {
-	anim.Draw(x,y);
+	//al_draw_filled_circle(x,y, SIZE * 16.0f, al_map_rgb(255,255,255));
+	anim.Draw(x-16,y-16);
 }
 
 void Character::Input(const ALLEGRO_EVENT& ev) {

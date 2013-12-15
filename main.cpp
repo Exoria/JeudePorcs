@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
+#include <allegro5/allegro_primitives.h>
 #include "Character.hpp"
 #include "Map.hpp"
 
@@ -49,6 +50,11 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
+	if (!al_init_primitives_addon()) {
+		fprintf(stderr, "failed to load primitives addon!\n");
+		return -1;
+	}
+
 	bouncer = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
 	if(!bouncer) {
 		fprintf(stderr, "failed to create bouncer bitmap!\n");
@@ -86,7 +92,7 @@ int main(int argc, char **argv)
 
 	{
 
-        Map* ma_map = new Map(32.0, 32.0, 2, 2, IMG_TERRAIN);
+        Map* ma_map = new Map(32.0, 32.0, 3, 3, IMG_TERRAIN);
         float source_hauteur = 32.0;
         float source_largeur = 32.0;
         float herbe_x = 3.0;
@@ -95,10 +101,17 @@ int main(int argc, char **argv)
         float lave_y = 163.0;
         ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 0, 0));
         ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 0, 1));
-        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, lave_x, lave_y, 1, 0));
-        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 1, 1));
+        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 0, 2));
 
-		Character charac;
+        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 1, 0));
+		ma_map->ajouter_case(new Case(ma_map, false, source_largeur, source_hauteur, lave_x, lave_y, 1, 1));
+        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 1, 2));
+
+        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 2, 0));
+        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 2, 1));
+        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 2, 2));
+
+		Character charac(ma_map);
 		float lastTime = al_current_time();
 
 		while(1)

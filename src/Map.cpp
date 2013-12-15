@@ -53,9 +53,13 @@ void Map::dessiner(ALLEGRO_DISPLAY* display)
 
 // GETTEURS
 
-const Case* Map::get_case(const float pos_x, const float pos_y)
+const Case* Map::get_case(const float pos_x, const float pos_y) const
 {
     int colonne = floor(pos_x / this->_largeur_case);
     int ligne   = floor(pos_y / this->_hauteur_case);
+
+    if (colonne < 0 || colonne >= _nb_colonnes || ligne < 0 || ligne >= _nb_lignes)
+		return NULL;
+
     return this->_cases[colonne * this->_nb_colonnes + ligne];
 }

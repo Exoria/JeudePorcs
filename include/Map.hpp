@@ -18,7 +18,7 @@ class Map {
         // GETTEURS
         const float get_largeur_case() const {return this->_largeur_case;};
         const float get_hauteur_case() const {return this->_hauteur_case;};
-        const Case* get_case(const float pos_x, const float pos_y);
+        const Case* get_case(const float pos_x, const float pos_y) const;
 
     private:
         const float _largeur_case;

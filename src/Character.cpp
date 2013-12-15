@@ -2,12 +2,12 @@
 
 Character::Character()
 :	anim(2,0,3.0f)
-,	x(30.0f)
-,	y(30.0f)
-,	pressingDown(false)
 ,	pressingUp(false)
+,	pressingDown(false)
 ,	pressingLeft(false)
 ,	pressingRight(false)
+,	x(30.0f)
+,	y(30.0f)
 {
 }
 

@@ -17,13 +17,13 @@ class Character
 	private:
 		CharacterAnim anim;
 
-		float x;
-		float y;
-
-		bool pressingDown;
 		bool pressingUp;
+		bool pressingDown;
 		bool pressingLeft;
 		bool pressingRight;
+
+		float x;
+		float y;
 };
 
 #endif // CHARACTER_H

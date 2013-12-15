@@ -93,10 +93,10 @@ int main(int argc, char **argv)
         float herbe_y = 131.0;
         float lave_x = 67.0;
         float lave_y = 163.0;
-        ma_map.ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 0, 0));
-        ma_map.ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 0, 1));
-        ma_map.ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, lave_x, lave_y, 1, 0));
-        ma_map.ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 1, 1));
+        ma_map.ajouter_case(new Case(&ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 0, 0));
+        ma_map.ajouter_case(new Case(&ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 0, 1));
+        ma_map.ajouter_case(new Case(&ma_map, true, source_largeur, source_hauteur, lave_x, lave_y, 1, 0));
+        ma_map.ajouter_case(new Case(&ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 1, 1));
 
 		Character charac;
 		float lastTime = al_current_time();

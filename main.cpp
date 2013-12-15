@@ -92,26 +92,26 @@ int main(int argc, char **argv)
 
 	{
 
-        Map* ma_map = new Map(32.0, 32.0, 3, 3, IMG_TERRAIN);
+        Map ma_map(32.0, 32.0, 3, 3, IMG_TERRAIN);
         float source_hauteur = 32.0;
         float source_largeur = 32.0;
         float herbe_x = 3.0;
         float herbe_y = 131.0;
         float lave_x = 67.0;
         float lave_y = 163.0;
-        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 0, 0));
-        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 0, 1));
-        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 0, 2));
+        ma_map.ajouter_case(new Case(&ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 0, 0));
+        ma_map.ajouter_case(new Case(&ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 0, 1));
+        ma_map.ajouter_case(new Case(&ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 0, 2));
 
-        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 1, 0));
-		ma_map->ajouter_case(new Case(ma_map, false, source_largeur, source_hauteur, lave_x, lave_y, 1, 1));
-        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 1, 2));
+        ma_map.ajouter_case(new Case(&ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 1, 0));
+		ma_map.ajouter_case(new Case(&ma_map, false, source_largeur, source_hauteur, lave_x, lave_y, 1, 1));
+        ma_map.ajouter_case(new Case(&ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 1, 2));
 
-        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 2, 0));
-        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 2, 1));
-        ma_map->ajouter_case(new Case(ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 2, 2));
+        ma_map.ajouter_case(new Case(&ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 2, 0));
+        ma_map.ajouter_case(new Case(&ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 2, 1));
+        ma_map.ajouter_case(new Case(&ma_map, true, source_largeur, source_hauteur, herbe_x, herbe_y, 2, 2));
 
-		Character charac(ma_map);
+		Character charac(&ma_map);
 		float lastTime = al_current_time();
 
 		while(1)
@@ -147,7 +147,7 @@ int main(int argc, char **argv)
 				lastTime = newTime;
 
 				al_clear_to_color(al_map_rgb(0,0,0));
-				ma_map->dessiner(display);
+				ma_map.dessiner(display);
 
 				al_draw_bitmap(bouncer, bouncer_x, bouncer_y, 0);
 

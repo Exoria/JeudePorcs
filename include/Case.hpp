@@ -12,7 +12,7 @@ class Case
     public:
         Case(const Map* ma_map, const bool libre, const float source_largeur, const float source_hauteur,
              const float source_x, const float source_y, const int colonne, const int ligne, const string chemin_image);
-        ~Case();
+        virtual ~Case();
         void dessiner_case(ALLEGRO_DISPLAY *display);
 
         // GETTEURS

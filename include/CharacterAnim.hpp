@@ -10,15 +10,14 @@ public:
 	~CharacterAnim();
 
 	void Draw(float x, float y);
+	void SetFrame(int frame);
 
 	int character;
 	int anim;
 	float framerate;
 
 private:
-
-	int curFrame;
-	float lastFrameChange;
+	int firstFrame;
 
 	static ALLEGRO_BITMAP *image;
 	static int useCount;

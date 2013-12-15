@@ -9,12 +9,21 @@ class Character
 		Character();
 		virtual ~Character();
 
-		void Update();
-		void Input();
+		void Update(const float deltaT);
+		void Draw();
+		void Input(const ALLEGRO_EVENT& ev);
 
 	protected:
 	private:
 		CharacterAnim anim;
+
+		float x;
+		float y;
+
+		bool pressingUp;
+		bool pressingDown;
+		bool pressingLeft;
+		bool pressingRight;
 };
 
 #endif // CHARACTER_H

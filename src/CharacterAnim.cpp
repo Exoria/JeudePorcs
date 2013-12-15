@@ -5,7 +5,7 @@ ALLEGRO_BITMAP *CharacterAnim::image = NULL;
 int CharacterAnim::useCount = 0;
 
 
-CharacterAnim::CharacterAnim(int ch, int an, float fr) : character(ch), anim(an), framerate(fr), curFrame(0), lastFrameChange(0.0f) {
+CharacterAnim::CharacterAnim(int ch, int an, float fr) : character(ch), anim(an), framerate(fr), firstFrame(0) {
 	if (useCount == 0 && image == NULL) {
 		image = al_load_bitmap("resources/persos.png");
 		al_convert_mask_to_alpha(image, al_get_pixel(image,0,0));
@@ -35,10 +35,17 @@ void CharacterAnim::Draw(float x, float y) {
 		anim += 4;
 	}
 
-	int frame = (al_get_time() - lastFrameChange) * framerate;
-	frame %= 4;
-	if (frame == 3)
-		frame = 1;
+	int frame = firstFrame;
+	if (framerate > 0.0f) {
+		frame += (al_get_time() * framerate);
+		frame %= 4;
+		if (frame == 3)
+			frame = 1;
+	}
 
 	al_draw_scaled_bitmap( image, (character*3+frame)*w, anim*h, w, h, x, y, w, h, 0 );
+}
+
+void CharacterAnim::SetFrame(int frame) {
+	firstFrame = frame;
 }

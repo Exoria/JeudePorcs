@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
-#include "CharacterAnim.hpp"
+#include "Character.hpp"
 
 const float FPS = 60;
 const int SCREEN_W = 640;
@@ -73,7 +73,7 @@ int main(int argc, char **argv)
 	}
 
 	al_register_event_source(event_queue, al_get_display_event_source(display));
-
+	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
 	al_clear_to_color(al_map_rgb(0,0,0));
@@ -83,12 +83,15 @@ int main(int argc, char **argv)
 	al_start_timer(timer);
 
 	{
-		CharacterAnim anim(0,0,3.0f);
+		Character charac;
+		float lastTime = al_current_time();
 
 		while(1)
 		{
 			ALLEGRO_EVENT ev;
 			al_wait_for_event(event_queue, &ev);
+
+			charac.Input(ev);
 
 			if(ev.type == ALLEGRO_EVENT_TIMER) {
 				if(bouncer_x < 0 || bouncer_x > SCREEN_W - BOUNCER_SIZE) {
@@ -111,11 +114,16 @@ int main(int argc, char **argv)
 			if(redraw && al_is_event_queue_empty(event_queue)) {
 				redraw = false;
 
+				float newTime = al_current_time();
+				float deltaTime = newTime - lastTime;
+				lastTime = newTime;
+
 				al_clear_to_color(al_map_rgb(0,0,0));
 
 				al_draw_bitmap(bouncer, bouncer_x, bouncer_y, 0);
 
-				anim.Draw(50,50);
+				charac.Update(deltaTime);
+				charac.Draw();
 
 				al_flip_display();
 			}

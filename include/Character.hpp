@@ -20,8 +20,8 @@ class Character
 		float x;
 		float y;
 
-		bool pressingUp;
 		bool pressingDown;
+		bool pressingUp;
 		bool pressingLeft;
 		bool pressingRight;
 };
